@@ -28,13 +28,11 @@ def process_hn_list():
     hn_data["Pos F3"] = hn_data["Pos F3"].round()
 
     hn_data_list = [[int(series.iloc[0]), str(round(float(series.iloc[1]), 3)).ljust(6, "0"), str(round(float(series.iloc[2]), 3)).ljust(7, "0")] for (index, series) in hn_data.iterrows()]
-    #hn_data_dict_num = {int(series.iloc[0]):[float(series.iloc[1]), float(series.iloc[2])] for (index, series) in hn_data.iterrows()}
-    #hn_data_dict = {key:[str(round(value[0], 3)).ljust(6, "0"), str(round(value[1], 3)).ljust(7, "0")] for (key, value) in hn_data_dict_num.items()}
 
     return hn_data_list
 
 
-#returns dictionary with index(plane number) as keys and list of chemical shifts as values for CANH from .list file
+#returns dictionary with index(plane number) as key and list of chemical shifts (CA, N2, H2) as value for CANH from .list file
 def process_canh_list():
     with open(CANH_path) as canh_data:
         canh = canh_data.readlines()
@@ -80,7 +78,7 @@ for shift in hn_data:
 final_result = header + results
 
 #print final result to console
-print(final_result)
+#print(final_result)
 
 #write final peaklist including header to .peaks file
 with open(result_path, "w") as result_file:
