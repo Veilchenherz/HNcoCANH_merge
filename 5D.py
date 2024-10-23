@@ -80,7 +80,7 @@ final_result = header + results
 #print final result to console
 #print(final_result)
 
-#write final peaklist including header to .peaks file
+#write final peak list including header to .peaks file
 with open(result_path, "w") as result_file:
     result_file.write(final_result)
 

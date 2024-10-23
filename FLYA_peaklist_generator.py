@@ -1,85 +1,105 @@
 import pandas
+import headers
 
-#File paths for peak lists, HN-part from CCPN as .csv file, CANH-part as .list file
-HN_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/HNcoCANH_700/HNcoCANH_less_peaks.csv"
-CANH_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/HNcoCANH_700/hCANH-700.list"
+
+#number of dimensions (can be 2,3,4) and name of the dimensions
+dimensions = 4
+dim1_name = "HN"
+dim2_name = "N"
+dim3_name = "C"
+dim4_name = "CA"
+
+#name of the spectrum according to FLYA library or LinserSolids.lib etc
+spectrum_name = "shCACONH"
+
+#name of the peak list file (without .csv extension)
+peak_list_name = "CACONH"
+
+#path of the directory, where the peak list is located
+peak_list_directory = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/hCACONH"
+
+
+
+
+#file path for peak list from CCPN as .csv file
+peak_list_path = f"{peak_list_directory}/{peak_list_name}.csv"
 
 #file path for the resulting .peaks file
-result_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/HNcoCANH_700/HNcoCANH-700_less_peaks.peaks"
-
-#columns following the data in the .peaks file
-other_columns = "1\tU\t1\t1\te\t0\t0\t0\t0\t0\t0\t0"
+result_path = f"{peak_list_directory}/{peak_list_name}.peaks"
 
 #header of the resulting .peaks file
-header = ("#\tNumber\tof\tdimensions\t5\n"
-          "#FORMAT xeasy5D\n"
-          "#INAME\t1\tCA\n"
-          "#INAME\t3\tN1\n"
-          "#INAME\t3\tH1\n"
-          "#INAME\t4\tH2\n"
-          "#INAME\t5\tN2\n"
-          "#SPECTRUM HNcoCANH_5D CA N2 H2 H1 N1\n")
+# header = (f"#\tNumber\tof\tdimensions\t{dimensions}\n"
+#           f"#FORMAT xeasy{dimensions}D\n"
+#           "#INAME\t1\tCA\n"
+#           "#INAME\t3\tN1\n"
+#           "#INAME\t3\tH1\n"
+#           "#INAME\t4\tH2\n"
+#           "#INAME\t5\tN2\n"
+#           "#SPECTRUM HNcoCANH_5D CA N2 H2 H1 N1\n")
 
 
-#returns list with first item being the plane number and the second and third item being the H1 and N1 chemical shifts for HN from CCPN .csv file
-def process_hn_list():
-    hn = pandas.read_csv(HN_path)
-    hn_data = (hn[["Pos F3", "Pos F2", "Pos F1"]]).sort_values("Pos F3")
-    hn_data["Pos F3"] = hn_data["Pos F3"].round()
-
-    hn_data_list = [[int(series.iloc[0]), str(round(float(series.iloc[1]), 3)).ljust(6, "0"), str(round(float(series.iloc[2]), 3)).ljust(7, "0")] for (index, series) in hn_data.iterrows()]
-
-    return hn_data_list
+#columns following the data in the .peaks file
+zero_column = "\t0"
+other_columns = f"1\tU\t1\t1\te{(dimensions + 1) * zero_column}"
 
 
-#returns dictionary with index(plane number) as key and list of chemical shifts (CA, N2, H2) as value for CANH from .list file
-def process_canh_list():
-    with open(CANH_path) as canh_data:
-        canh = canh_data.readlines()
-    canh_list = [item.split("\t") for item in canh]
-    canh_list_clean = [[str(round(float(item[1]), 3)).ljust(6, "0"), str(round(float(item[2]), 3)).ljust(7, "0"), str(round(float(item[3]), 3)).ljust(6, "0")] for item in canh_list]
+#returns list with first item being the peak number and the chemical shifts from CCPN .csv file
+def process_list():
+    data = pandas.read_csv(peak_list_path)
 
-    canh_list_index = []
-    i = 1
-    for item in canh_list_clean:
-        item.insert(0,i)
-        canh_list_index.append(item)
-        i += 1
+    if dimensions == 2:
+        shift_data = data[["#", "Pos F1", "Pos F2"]]
+        data_list = [[
+            int(series.iloc[0]),
+            round(float(series.iloc[1]), 3),
+            round(float(series.iloc[2]), 3)] for (index, series) in shift_data.iterrows()]
+    elif dimensions == 3:
+        shift_data = data[["#", "Pos F1", "Pos F2", "Pos F3"]]
+        data_list = [[
+            int(series.iloc[0]),
+            round(float(series.iloc[1]), 3),
+            round(float(series.iloc[2]), 3),
+            round(float(series.iloc[3]), 3)] for (index, series) in shift_data.iterrows()]
+    elif dimensions == 4:
+        shift_data = data[["#", "Pos F1", "Pos F2", "Pos F3", "Pos F4"]]
+        data_list = [[
+            int(series.iloc[0]),
+            round(float(series.iloc[1]), 3),
+            round(float(series.iloc[2]), 3),
+            round(float(series.iloc[3]), 3),
+            round(float(series.iloc[4]), 3)] for (index, series) in shift_data.iterrows()]
+    else:
+        raise Exception
 
-    canh_dict = {item[0]:[item[1], item[2], item[3]] for item in canh_list_index}
-
-    return canh_dict
+    return data_list
 
 
-
-hn_data = process_hn_list()
-canh_data = process_canh_list()
-
+spectrum_data = process_list()
 
 results = ""
-counter = 1
 
-#construct lines of result file from hn_data and canh_data
-for shift in hn_data:
-    new_line = (
-        f"{counter}\t"
-        f"{canh_data[shift[0]][0]}\t"
-        f"{canh_data[shift[0]][1]}\t"
-        f"{canh_data[shift[0]][2]}\t"
-        f"{shift[1]}\t"
-        f"{shift[2]}\t"
-        f"{other_columns}\n"
-        )
+#construct lines of result file from spectrum_data
+for shift in spectrum_data:
+    new_line = ""
+    new_line += f"{shift[0]}\t"
+    for item in range(1, dimensions + 1):
+        new_item = f"{shift[item]}\t"
+        new_line += new_item
+    new_line += f"{other_columns}\n"
 
-    results = results + new_line
-    counter += 1
+    results += new_line
+
+
+headers = headers.Headers(dimensions=dimensions, spectrum_name=spectrum_name, dim1=dim1_name, dim2=dim2_name, dim3=dim3_name, dim4=dim4_name)
+
+header = headers.create_header()
 
 
 final_result = header + results
 
 #print final result to console
-#print(final_result)
+print(final_result)
 
-#write final peaklist including header to .peaks file
-with open(result_path, "w") as result_file:
-    result_file.write(final_result)
+#write final peak list including header to .peaks file
+# with open(result_path, "w") as result_file:
+#     result_file.write(final_result)
