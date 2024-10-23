@@ -1,11 +1,11 @@
 import pandas
 
 #File paths for peak lists, HN-part from CCPN as .csv file, CANH-part as .list file
-HN_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/HNcoCANH_700/HN_part.csv"
+HN_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/HNcoCANH_700/HNcoCANH_less_peaks.csv"
 CANH_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/HNcoCANH_700/hCANH-700.list"
 
 #file path for the resulting .peaks file
-result_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/HNcoCANH_700/HNcoCANH-700.peaks"
+result_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/HNcoCANH_700/HNcoCANH-700_less_peaks.peaks"
 
 #columns following the data in the .peaks file
 other_columns = "1\tU\t1\t1\te\t0\t0\t0\t0\t0\t0\t0"
