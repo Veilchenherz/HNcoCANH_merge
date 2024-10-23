@@ -27,16 +27,6 @@ peak_list_path = f"{peak_list_directory}/{peak_list_name}.csv"
 #file path for the resulting .peaks file
 result_path = f"{peak_list_directory}/{peak_list_name}.peaks"
 
-#header of the resulting .peaks file
-# header = (f"#\tNumber\tof\tdimensions\t{dimensions}\n"
-#           f"#FORMAT xeasy{dimensions}D\n"
-#           "#INAME\t1\tCA\n"
-#           "#INAME\t3\tN1\n"
-#           "#INAME\t3\tH1\n"
-#           "#INAME\t4\tH2\n"
-#           "#INAME\t5\tN2\n"
-#           "#SPECTRUM HNcoCANH_5D CA N2 H2 H1 N1\n")
-
 
 #columns following the data in the .peaks file
 zero_column = "\t0"
@@ -92,6 +82,7 @@ for shift in spectrum_data:
 
 headers = headers.Headers(dimensions=dimensions, spectrum_name=spectrum_name, dim1=dim1_name, dim2=dim2_name, dim3=dim3_name, dim4=dim4_name)
 
+#Creates the header for the .peaks file from the spectrum name and dimensions
 header = headers.create_header()
 
 
