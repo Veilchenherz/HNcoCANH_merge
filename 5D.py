@@ -13,7 +13,7 @@ result_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklis
 other_columns = "1\tU\t1\t1\te\t0\t0\t0\t0\t0\t0\t0"
 
 
-#number of dimensions (can be 2,3,4) and name of the dimensions
+#name of the dimensions
 DIMENSIONS = 5
 dim1_name = "CA"
 dim2_name = "N2"
@@ -25,7 +25,7 @@ dim5_name = "N1"
 spectrum_name = "HNcoCANH_5D"
 
 
-
+########################################################################################################################
 
 
 #returns number with exactly 3 decimal places as string | input must be number as string with a maximum of 3 decimal places

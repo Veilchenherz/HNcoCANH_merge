@@ -3,7 +3,7 @@ import decimal
 import headers
 
 
-#number of dimensions (can be 2,3,4) and name of the dimensions
+#number of dimensions (can be 2,3,4) and name of the dimensions (for creating the header of the .peaks file)
 dimensions = 4
 dim1_name = "HN"
 dim2_name = "N"
@@ -20,6 +20,7 @@ peak_list_name = "CACONH"
 peak_list_directory = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/hCACONH"
 
 
+########################################################################################################################
 
 
 #file path for peak list from CCPN as .csv file
