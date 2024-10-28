@@ -1,5 +1,6 @@
 import pandas
 import decimal
+import headers
 
 #File paths for peak lists, CCPN-part as .csv file and list part as .list file
 ccpn_csv_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/HNcoCANH_700/HNcoCANH_less_peaks.csv"
@@ -11,18 +12,23 @@ result_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklis
 #columns following the data in the .peaks file
 other_columns = "1\tU\t1\t1\te\t0\t0\t0\t0\t0\t0\t0"
 
-#header of the resulting .peaks file
-header = ("#\tNumber\tof\tdimensions\t5\n"
-          "#FORMAT xeasy5D\n"
-          "#INAME\t1\tCA\n"
-          "#INAME\t3\tN1\n"
-          "#INAME\t3\tH1\n"
-          "#INAME\t4\tH2\n"
-          "#INAME\t5\tN2\n"
-          "#SPECTRUM HNcoCANH_5D CA N2 H2 H1 N1\n")
+
+#number of dimensions (can be 2,3,4) and name of the dimensions
+DIMENSIONS = 5
+dim1_name = "CA"
+dim2_name = "N2"
+dim3_name = "H2"
+dim4_name = "H1"
+dim5_name = "N1"
+
+#name of the spectrum according to FLYA library or LinserSolids.lib etc.
+spectrum_name = "HNcoCANH_5D"
 
 
-#returns number with exactly 3 decimal points as string
+
+
+
+#returns number with exactly 3 decimal places as string | input must be number as string with a maximum of 3 decimal places
 def create_three_decimals(number: str):
     number_decimal = decimal.Decimal(number).as_tuple().exponent * -1
 
@@ -64,14 +70,14 @@ def process_ccpn_list():
 def process_list_file():
     with open(list_file_path) as canh_data:
         canh = canh_data.readlines()
-    canh_list = [item.split("\t") for item in canh]
-    canh_list_clean = [[
+    list_list = [item.split("\t") for item in canh]
+    list_list_clean = [[
         round(float(item[1]), 3),
         round(float(item[2]), 3),
-        round(float(item[3]), 3)] for item in canh_list]
+        round(float(item[3]), 3)] for item in list_list]
 
     final_list_list = []
-    for entry in canh_list_clean:
+    for entry in list_list_clean:
         new_entry = []
         for item in entry:
             new_item = create_three_decimals(str(item))
@@ -79,33 +85,33 @@ def process_list_file():
 
         final_list_list.append(new_entry)
 
-    canh_list_index = []
+    list_list_index = []
     i = 1
     for item in final_list_list:
         item.insert(0,i)
-        canh_list_index.append(item)
+        list_list_index.append(item)
         i += 1
 
-    canh_dict = {item[0]:[item[1], item[2], item[3]] for item in canh_list_index}
+    list_dict = {item[0]:[item[1], item[2], item[3]] for item in list_list_index}
 
-    return canh_dict
+    return list_dict
 
 
 
-hn_data = process_ccpn_list()
-canh_data = process_list_file()
+ccpn_data = process_ccpn_list()
+list_file_data = process_list_file()
 
 
 results = ""
 counter = 1
 
 #construct lines of result file from hn_data and canh_data
-for shift in hn_data:
+for shift in ccpn_data:
     new_line = (
         f"{counter}\t"
-        f"{canh_data[shift[0]][0]}\t"
-        f"{canh_data[shift[0]][1]}\t"
-        f"{canh_data[shift[0]][2]}\t"
+        f"{list_file_data[shift[0]][0]}\t"
+        f"{list_file_data[shift[0]][1]}\t"
+        f"{list_file_data[shift[0]][2]}\t"
         f"{shift[1]}\t"
         f"{shift[2]}\t"
         f"{other_columns}\n"
@@ -114,6 +120,20 @@ for shift in hn_data:
     results = results + new_line
     counter += 1
 
+
+#creates a headers object from the Headers class to allow for generating of the correct header later
+headers = headers.Headers(
+    dimensions=DIMENSIONS,
+    spectrum_name=spectrum_name,
+    dim1=dim1_name,
+    dim2=dim2_name,
+    dim3=dim3_name,
+    dim4=dim4_name,
+    dim5=dim5_name
+)
+
+#creates the header for the .peaks file from the spectrum name and dimensions
+header = headers.create_header()
 
 final_result = header + results
 

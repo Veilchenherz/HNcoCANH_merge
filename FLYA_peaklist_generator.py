@@ -33,7 +33,7 @@ result_path = f"{peak_list_directory}/{peak_list_name}.peaks"
 zero_column = "\t0"
 other_columns = f"1\tU\t1\t1\te{(dimensions + 1) * zero_column}"
 
-#returns number with exactly 3 decimal points as string
+#returns number with exactly 3 decimal places as string
 def create_three_decimals(number: str):
     number_decimal = decimal.Decimal(number).as_tuple().exponent * -1
 
@@ -115,7 +115,7 @@ headers = headers.Headers(
     dim4=dim4_name
 )
 
-#Creates the header for the .peaks file from the spectrum name and dimensions
+#creates the header for the .peaks file from the spectrum name and dimensions
 header = headers.create_header()
 
 
