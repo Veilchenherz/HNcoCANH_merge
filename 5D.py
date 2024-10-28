@@ -3,11 +3,11 @@ import decimal
 import headers
 
 #File paths for peak lists, CCPN-part as .csv file and list part as .list file
-ccpn_csv_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/HNcoCANH_700/HNcoCANH_less_peaks.csv"
-list_file_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/HNcoCANH_700/hCANH-700.list"
+ccpn_csv_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/seHNcoCANH/seHNcoCANH_2.csv"
+list_file_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/seHNcoCANH/hCANH-new.list"
 
 #file path for the resulting .peaks file
-result_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/HNcoCANH_700/HNcoCANH-700_less_peaks.peaks"
+result_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/seHNcoCANH/seHNcoCANH.peaks"
 
 #columns following the data in the .peaks file
 other_columns = "1\tU\t1\t1\te\t0\t0\t0\t0\t0\t0\t0"
@@ -138,11 +138,11 @@ header = headers.create_header()
 final_result = header + results
 
 #print final result to console
-print(final_result)
+#print(final_result)
 
 #write final peak list including header to .peaks file
-# with open(result_path, "w") as result_file:
-#     result_file.write(final_result)
+with open(result_path, "w") as result_file:
+    result_file.write(final_result)
 
 
 
