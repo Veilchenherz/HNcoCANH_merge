@@ -1,4 +1,5 @@
 import pandas
+import decimal
 import headers
 
 
@@ -32,8 +33,22 @@ result_path = f"{peak_list_directory}/{peak_list_name}.peaks"
 zero_column = "\t0"
 other_columns = f"1\tU\t1\t1\te{(dimensions + 1) * zero_column}"
 
+#returns number with exactly 3 decimal points as string
+def create_three_decimals(number: str):
+    number_decimal = decimal.Decimal(number).as_tuple().exponent * -1
 
-#returns list with first item being the peak number and the chemical shifts from CCPN .csv file
+    if number[-1] != "." and number_decimal == 0:
+        number += ".000"
+
+    else:
+        while number_decimal < 3:
+            number = number.ljust(len(number) + 1, "0")
+            number_decimal = decimal.Decimal(number).as_tuple().exponent * -1
+
+    return number
+
+
+#returns list with first item being the peak number and the others being chemical shifts from CCPN .csv file
 def process_list():
     data = pandas.read_csv(peak_list_path)
 
@@ -59,9 +74,20 @@ def process_list():
             round(float(series.iloc[3]), 3),
             round(float(series.iloc[4]), 3)] for (index, series) in shift_data.iterrows()]
     else:
-        raise Exception
+        raise ValueError("Wrong number of dimensions!")
 
-    return data_list
+    final_data_list = []
+    for entry in data_list:
+        new_entry = [entry[0]]
+        for item in entry[1:]:
+            new_item = create_three_decimals(str(item))
+            new_entry.append(new_item)
+
+        final_data_list.append(new_entry)
+
+
+
+    return final_data_list
 
 
 spectrum_data = process_list()
@@ -80,7 +106,14 @@ for shift in spectrum_data:
     results += new_line
 
 
-headers = headers.Headers(dimensions=dimensions, spectrum_name=spectrum_name, dim1=dim1_name, dim2=dim2_name, dim3=dim3_name, dim4=dim4_name)
+headers = headers.Headers(
+    dimensions=dimensions,
+    spectrum_name=spectrum_name,
+    dim1=dim1_name,
+    dim2=dim2_name,
+    dim3=dim3_name,
+    dim4=dim4_name
+)
 
 #Creates the header for the .peaks file from the spectrum name and dimensions
 header = headers.create_header()
@@ -89,8 +122,8 @@ header = headers.create_header()
 final_result = header + results
 
 #print final result to console
-print(final_result)
+#print(final_result)
 
 #write final peak list including header to .peaks file
-# with open(result_path, "w") as result_file:
-#     result_file.write(final_result)
+with open(result_path, "w") as result_file:
+    result_file.write(final_result)
