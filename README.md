@@ -1,4 +1,4 @@
-# Generate FLYA peak lists
+# Generate FLYA peak lists from CCPN data
 
 ### 5D: 
 Use 5D.py to generate FLYA peak lists for 5D spectra from a CCPN .csv file and a .list file
