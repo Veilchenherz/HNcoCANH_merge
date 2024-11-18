@@ -1,4 +1,4 @@
-class Headers():
+class Headers:
 
     def __init__(self, dimensions, spectrum_name, dim1 = "H", dim2 = "H", dim3 = "H", dim4 = "H", dim5 ="H"):
         self.top_header = (

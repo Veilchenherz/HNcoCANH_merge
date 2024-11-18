@@ -3,11 +3,11 @@ import decimal
 import headers
 
 #File paths for peak lists, CCPN-part as .csv file and list part as .list file
-ccpn_csv_path = "example.csv"
-list_file_path = "example.list"
+ccpn_csv_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/seHNcoCANH/seHNcoCANH_2.csv"
+list_file_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/seHNcoCANH/hCANH-new.list"
 
 #file path for the resulting .peaks file
-result_path = "example.peaks"
+result_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/seHNcoCANH/seHNcoCANH.peaks"
 
 #columns following the data in the .peaks file
 other_columns = "1\tU\t1\t1\te\t0\t0\t0\t0\t0\t0\t0"
