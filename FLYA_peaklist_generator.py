@@ -17,7 +17,7 @@ spectrum_name = "shCACONH"
 peak_list_name = "CACONH"
 
 #path of the directory, where the peak list is located
-peak_list_directory = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/hCACONH"
+peak_list_directory = "example/example"
 
 
 ########################################################################################################################
