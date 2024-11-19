@@ -1,4 +1,5 @@
 poky_output_file_path = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/p38_reference_prot/p_38_new_ref/p38_solids_only_with_ps6D_neu"
+reference_result_path = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/p38_reference_prot/p_38_new_ref/xeasy_ref.prot"
 amino_acid_number_shift = 0
 
 
@@ -17,12 +18,10 @@ def process_poky_output():
         del item[4]
         amino_acid = list(item[0])
         item.append(amino_acid[0])
-        del amino_acid[0]
-        amino_acid_number = int("".join(amino_acid)) + amino_acid_number_shift
+        amino_acid_number = int("".join(amino_acid[1:])) + amino_acid_number_shift
         amino_acid_number_str = str(amino_acid_number)
-        del item[0]
         item.append(amino_acid_number_str)
-        cleaned_list.append(item)
+        cleaned_list.append(item[1:])
 
 
 
@@ -38,4 +37,7 @@ def process_poky_output():
 
 final_result = process_poky_output()
 
-print(final_result)
+#print(final_result)
+
+with open(reference_result_path, "w") as result_file:
+    result_file.write(final_result)
