@@ -9,11 +9,11 @@ def process_poky_output():
         poky_data = poky_file.readlines()
 
     poky_data_list = [line.split() for line in poky_data]
-    cleaned_list = []
+
 
     #split residue number and name into two list entries (e.g. ['E14'] -> ['E', '14'])
     #correct number of amino acid by the specified "amino_acid_number_shift"
-
+    cleaned_list = []
     for item in poky_data_list:
         del item[4]
         amino_acid = list(item[0])

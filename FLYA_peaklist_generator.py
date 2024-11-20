@@ -7,17 +7,17 @@ import headers
 dimensions = 4
 dim1_name = "HN"
 dim2_name = "N"
-dim3_name = "C"
-dim4_name = "CA"
+dim3_name = "C1"
+dim4_name = "C2"
 
 #name of the spectrum according to FLYA library or LinserSolids.lib etc
-spectrum_name = "shCACONH"
+spectrum_name = "hCAncoCANH"
 
 #name of the peak list file (without .csv extension)
-peak_list_name = "CACONH"
+peak_list_name = "hCAncoCANH_20241120"
 
 #path of the directory, where the peak list is located
-peak_list_directory = "example/example"
+peak_list_directory = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/hCAncoCANH"
 
 
 ########################################################################################################################
