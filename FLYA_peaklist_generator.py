@@ -5,19 +5,19 @@ import headers
 
 #number of dimensions (can be 2,3,4) and name of the dimensions (for creating the header of the .peaks file)
 dimensions = 4
-dim1_name = "HN"
-dim2_name = "N"
-dim3_name = "C1"
-dim4_name = "C2"
+dim1_name = ""
+dim2_name = ""
+dim3_name = ""
+dim4_name = ""
 
 #name of the spectrum according to FLYA library or LinserSolids.lib etc
-spectrum_name = "hCAncoCANH"
+spectrum_name = ""
 
 #name of the peak list file (without .csv extension)
-peak_list_name = "hCAncoCANH_20241120"
+peak_list_name = ""
 
 #path of the directory, where the peak list is located
-peak_list_directory = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/hCAncoCANH"
+peak_list_directory = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/"
 
 
 ########################################################################################################################
