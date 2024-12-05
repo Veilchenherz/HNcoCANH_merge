@@ -1,7 +1,10 @@
-poky_output_file_path = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/p38_reference_prot/p_38_new_ref/p38_solids_only_with_ps6D_neu"
-reference_result_path = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/p38_reference_prot/p_38_new_ref/xeasy_ref.prot"
+###############################################################################################################################################################
+
+poky_output_file_path = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/p38_reference_prot/p_38_new_ref/p38_ref"
+reference_result_path = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/p38_reference_prot/p_38_new_ref/p38_ref.prot"
 amino_acid_number_shift = 0
 
+###############################################################################################################################################################
 
 def process_poky_output():
 
