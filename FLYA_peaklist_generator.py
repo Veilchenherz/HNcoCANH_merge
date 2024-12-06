@@ -2,39 +2,40 @@ import pandas
 import decimal
 import headers
 
+########################################################################################################################
 
-#number of dimensions (can be 2,3,4) and name of the dimensions (for creating the header of the .peaks file)
+# number of dimensions (can be 2,3,4) and name of the dimensions (for creating the header of the .peaks file)
 dimensions = 3
 dim1_name = "HN"
 dim2_name = "N"
 dim3_name = "C"
 dim4_name = ""
 
-#name of the spectrum according to FLYA library or LinserSolids.lib etc
+# name of the spectrum according to FLYA library or LinserSolids.lib etc
 spectrum_name = "shCANH_2"
 
-#name of the peak list file (without .csv extension)
+# name of the peak list file (without .csv extension)
 peak_list_name = "sehCANH_20241205"
 
-#path of the directory, where the peak list is located
+# path of the directory, where the peak list is located
 peak_list_directory = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/sehCANH"
 
 
 ########################################################################################################################
 
 
-#file path for peak list from CCPN as .csv file
+# file path for peak list from CCPN as .csv file
 peak_list_path = f"{peak_list_directory}/{peak_list_name}.csv"
 
-#file path for the resulting .peaks file
+# file path for the resulting .peaks file
 result_path = f"{peak_list_directory}/{peak_list_name}.peaks"
 
 
-#columns following the data in the .peaks file
+# columns following the data in the .peaks file
 zero_column = "\t0"
 other_columns = f"1\tU\t1\t1\te{(dimensions + 1) * zero_column}"
 
-#returns number with exactly 3 decimal places as string
+# returns number with exactly 3 decimal places as string
 def create_three_decimals(number: str):
     number_decimal = decimal.Decimal(number).as_tuple().exponent * -1
 
@@ -49,7 +50,7 @@ def create_three_decimals(number: str):
     return number
 
 
-#returns list with first item being the peak number and the others being chemical shifts from CCPN .csv file
+# returns list with first item being the peak number and the others being chemical shifts from CCPN .csv file
 def process_list():
     data = pandas.read_csv(peak_list_path)
 
@@ -95,7 +96,7 @@ spectrum_data = process_list()
 
 results = ""
 
-#construct lines of result file from spectrum_data
+# construct lines of result file from spectrum_data
 for shift in spectrum_data:
     new_line = ""
     new_line += f"{shift[0]}\t"
@@ -116,7 +117,7 @@ headers = headers.Headers(
     dim4=dim4_name
 )
 
-#creates the header for the .peaks file from the spectrum name and dimensions
+# creates the header for the .peaks file from the spectrum name and dimensions
 header = headers.create_header()
 
 
@@ -125,6 +126,6 @@ final_result = header + results
 #print final result to console
 #print(final_result)
 
-#write final peak list including header to .peaks file
+# write final peak list including header to .peaks file
 with open(result_path, "w") as result_file:
     result_file.write(final_result)
