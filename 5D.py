@@ -2,18 +2,24 @@ import pandas
 import decimal
 import headers
 
-#File paths for peak lists, CCPN-part as .csv file and list part as .list file
+########################################################################################################################
+
+# calculates Flya peak lists (.peaks) from .list files and CCPN .csv files
+
+########################################################################################################################
+
+# File paths for peak lists, CCPN-part as .csv file and list part as .list file
 ccpn_csv_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/seHNcoCANH/seHNcoCANH_2.csv"
 list_file_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/seHNcoCANH/hCANH-new.list"
 
-#file path for the resulting .peaks file
+# file path for the resulting .peaks file
 result_path = "/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/peaklists/seHNcoCANH/seHNcoCANH.peaks"
 
-#columns following the data in the .peaks file
+# columns following the data in the .peaks file
 other_columns = "1\tU\t1\t1\te\t0\t0\t0\t0\t0\t0\t0"
 
 
-#name of the dimensions
+# name of the dimensions
 DIMENSIONS = 5
 dim1_name = "CA"
 dim2_name = "N2"
@@ -21,14 +27,14 @@ dim3_name = "H2"
 dim4_name = "H1"
 dim5_name = "N1"
 
-#name of the spectrum according to FLYA library or LinserSolids.lib etc.
+# name of the spectrum according to FLYA library or LinserSolids.lib etc.
 spectrum_name = "HNcoCANH_5D"
 
 
 ########################################################################################################################
 
 
-#returns number with exactly 3 decimal places as string | input must be number as string with a maximum of 3 decimal places
+# returns number with exactly 3 decimal places as string | input must be number as string with a maximum of 3 decimal places
 def create_three_decimals(number: str):
     number_decimal = decimal.Decimal(number).as_tuple().exponent * -1
 
@@ -43,7 +49,7 @@ def create_three_decimals(number: str):
     return number
 
 
-#returns list with first item being the plane number and the second and third item being the chemical shifts from CCPN .csv file
+# returns list with first item being the plane number and the second and third item being the chemical shifts from CCPN .csv file
 def process_ccpn_list():
     hn = pandas.read_csv(ccpn_csv_path)
     hn_data = (hn[["Pos F3", "Pos F2", "Pos F1"]]).sort_values("Pos F3")
@@ -66,7 +72,7 @@ def process_ccpn_list():
     return final_ccpn_data_list
 
 
-#returns dictionary with index(plane number) as key and list of chemical shifts as value from .list file
+# returns dictionary with index(plane number) as key and list of chemical shifts as value from .list file
 def process_list_file():
     with open(list_file_path) as canh_data:
         canh = canh_data.readlines()
@@ -105,7 +111,7 @@ list_file_data = process_list_file()
 results = ""
 counter = 1
 
-#construct lines of result file from hn_data and canh_data
+# construct lines of result file from hn_data and canh_data
 for shift in ccpn_data:
     new_line = (
         f"{counter}\t"
@@ -121,7 +127,7 @@ for shift in ccpn_data:
     counter += 1
 
 
-#creates a headers object from the Headers class to allow for generating of the correct header later
+# creates a headers object from the Headers class to allow for generating of the correct header later
 headers = headers.Headers(
     dimensions=DIMENSIONS,
     spectrum_name=spectrum_name,
@@ -132,7 +138,7 @@ headers = headers.Headers(
     dim5=dim5_name
 )
 
-#creates the header for the .peaks file from the spectrum name and dimensions
+# creates the header for the .peaks file from the spectrum name and dimensions
 header = headers.create_header()
 
 final_result = header + results
@@ -140,7 +146,7 @@ final_result = header + results
 #print final result to console
 #print(final_result)
 
-#write final peak list including header to .peaks file
+# write final peak list including header to .peaks file
 with open(result_path, "w") as result_file:
     result_file.write(final_result)
 
