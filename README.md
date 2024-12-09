@@ -1,11 +1,11 @@
-# Generate FLYA peak lists from CCPN data
+# Generate FLYA peak lists (.peaks) and Reference files (.prot) from CCPNmr data
 
-### 5D -> (.peaks)
+### 5D Peaklists -> (.peaks)
 Use 5D.py to generate FLYA peak lists for 5D spectra from a CCPN .csv file and a .list file
-### 2D/3D/4D -> (.peaks)
+### 2D/3D/4D Peaklists -> (.peaks)
 Use Flya_peaklist_generator.py to generate FLYA peak lists for 2D/3D/4D spectra from a CCPN .csv file
-### Note: 
-Both peak list scripts need the headers.py file to implement the necessary xeasy headers for FLYA peak lists! To run the scripts, you need the pandas module for python
+>#### Note: 
+>Both peak list scripts need the headers.py file to implement the necessary xeasy headers for FLYA peak lists! To run the scripts, you need the pandas module for python
 ### TALOS-N -> (.tab)
 Use talos.py to generate input files from the FLYA output files. You need the flya.tab and sequence.seq files.
 In addition the amino_acids.py is needed.
