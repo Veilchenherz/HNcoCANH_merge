@@ -35,7 +35,9 @@ def process_sequence():
         sequence_header = [name for number, name in sequence_dict_one_letter.items()]
         sequence_string = "".join(sequence_header)
 
-        return [sequence_dict_one_letter, sequence_string, sequence_lists[0][1]]
+        first_id = sequence_lists[0][1]
+
+        return [sequence_dict_one_letter, sequence_string, first_id]
 
 
 def create_full_list():
