@@ -2,14 +2,14 @@ from amino_acids import one_letter
 
 ########################################################################################################################
 
-# creates files that can be read by TALOS-N from Flya output files. You need the flya.tab file and the sequence.seq
+# creates files that can be read by TALOS-N from Flya output files. You need the flya.prot file and the sequence.seq
 # file for this to work
 
 ########################################################################################################################
 
-flya_prot_filepath = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/FLYA Ergebnisse/Flya_run_23_shiftassign_fix/flya.prot"
-flya_sequence_file = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/FLYA Ergebnisse/Flya_run_23_shiftassign_fix/sequence.seq"
-talos_filepath = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/TALOS-N/Flya_run_23/talos_23.tab"
+flya_prot_filepath = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/FLYA Ergebnisse/Flya_run_24_consolidate/consol.prot"
+flya_sequence_file = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/FLYA Ergebnisse/Flya_run_24_consolidate/sequence.seq"
+talos_filepath = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/TALOS-N/Flya_run_24/talos_24.tab"
 
 ########################################################################################################################
 
