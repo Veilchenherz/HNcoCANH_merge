@@ -1,10 +1,11 @@
-from os import write
+input_text_file = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/Abbildungen/Chimera/Flya_24_pdf_map_auf_structure/flya_tab_colors.txt"
+output_text_file = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/Abbildungen/Chimera/Flya_24_pdf_map_auf_structure/flya_tab_colors_chimera.txt"
+header = "\nattribute: chemicalShift\nrecipient: atoms\n"
 
-from PIL.DdsImagePlugin import item1
 
-input_text_file = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/Abbildungen/Chimera/Flya_24_sec_struc.txt"
-output_text_file = "C:/Userdata_Laurin/Masterarbeit/p38_solidassignments_Laurin/Abbildungen/Chimera/Flya_24_sec_struc_chimera.txt"
-header = "\nattribute: talos\nrecipient: residues\n"
+# script to insert tabstops at the beginning of every row to make a list readable by chimera
+# this script also inserts the header for the chimera file which specifies the attribute name
+# and its recipient (atom, residue, etc.)
 
 def add_initial_tabstop():
 
@@ -14,6 +15,7 @@ def add_initial_tabstop():
     new_list = ["\t" + item for item in initial_list]
 
     return new_list
+
 
 def write_result_file(chimera_list):
 
