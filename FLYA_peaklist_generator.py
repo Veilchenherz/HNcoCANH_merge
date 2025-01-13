@@ -36,6 +36,7 @@ zero_column = "\t0"
 other_columns = f"1\tU\t1\t1\te{(dimensions + 1) * zero_column}"
 
 # returns number with exactly 3 decimal places as string
+# input needs to be a number as a string with a maximum of 3 decimal places (e. g. rounded)
 def create_three_decimals(number: str):
     number_decimal = decimal.Decimal(number).as_tuple().exponent * -1
 
